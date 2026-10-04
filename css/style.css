@@ -1,0 +1,656 @@
+/* ====================================================================
+   GOLDLOG — Design Tokens
+   ==================================================================== */
+
+:root {
+
+    /* Surfaces */
+    --ink-950: #0E1015;
+    --ink-900: #14171F;
+    --ink-850: #181C25;
+    --ink-800: #1F2430;
+    --hairline: #2A3040;
+    --hairline-soft: #212633;
+
+    /* Text */
+    --text-hi: #EDEFF3;
+    --text-lo: #8B93A6;
+    --text-faint: #5B6376;
+
+    /* Signature accent — literal gold, not neon */
+    --gold: #C9A24B;
+    --gold-soft: #8A7332;
+    --gold-wash: rgba(201, 162, 75, 0.10);
+
+    /* Directional colors — muted, not neon */
+    --profit: #4CAE7C;
+    --profit-wash: rgba(76, 174, 124, 0.12);
+    --loss: #D0685F;
+    --loss-wash: rgba(208, 104, 95, 0.12);
+    --buy: #6C93E0;
+    --sell: #D0685F;
+
+    --radius: 10px;
+    --shadow-panel: 0 12px 30px rgba(0, 0, 0, 0.28);
+}
+
+
+/* ====================================================================
+   Base
+   ==================================================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: var(--ink-950);
+    color: var(--text-hi);
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+.terminal {
+    max-width: 1360px;
+    margin: 0 auto;
+    padding: 28px 32px 60px;
+}
+
+h1, h2 {
+    font-family: "Sora", "Inter", sans-serif;
+    margin: 0;
+}
+
+/* Tabular / monospace figures everywhere numbers appear */
+strong,
+input,
+select,
+td,
+.mono {
+    font-variant-numeric: tabular-nums;
+}
+
+
+/* ====================================================================
+   Header
+   ==================================================================== */
+
+.term-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 18px;
+    padding-bottom: 22px;
+    margin-bottom: 26px;
+    border-bottom: 1px solid var(--hairline);
+    position: relative;
+}
+
+.term-header::before {
+    content: "";
+    position: absolute;
+    top: -28px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--gold) 0%, transparent 60%);
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.brand-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--gold);
+    box-shadow: 0 0 0 4px var(--gold-wash);
+    flex-shrink: 0;
+    animation: pulse 2.4s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.45; }
+}
+
+.brand h1 {
+    font-size: 19px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--text-hi);
+}
+
+.brand p {
+    margin: 3px 0 0;
+    font-size: 12px;
+    color: var(--text-lo);
+}
+
+.header-right {
+    display: flex;
+    gap: 10px;
+}
+
+.header-chip {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    padding: 9px 16px;
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius);
+    background: var(--ink-900);
+    min-width: 120px;
+}
+
+.header-chip span {
+    font-size: 10.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-lo);
+}
+
+.header-chip strong {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-hi);
+}
+
+.header-chip--accent {
+    border-color: var(--gold-soft);
+    background: var(--gold-wash);
+}
+
+.header-chip--accent strong {
+    color: var(--gold);
+}
+
+
+/* ====================================================================
+   Panels
+   ==================================================================== */
+
+main {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.panel {
+    background: var(--ink-900);
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-panel);
+    overflow: hidden;
+}
+
+.panel-header {
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--hairline-soft);
+}
+
+.panel-header--split {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 12px;
+}
+
+.panel-eyebrow {
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+}
+
+.panel-header h2 {
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--text-hi);
+}
+
+.panel-header p {
+    margin: 6px 0 0;
+    font-size: 12.5px;
+    color: var(--text-lo);
+}
+
+.result-count {
+    font-size: 12px;
+    color: var(--text-lo);
+    font-family: "JetBrains Mono", monospace;
+}
+
+.panel-body {
+    padding: 22px 24px;
+}
+
+
+/* ====================================================================
+   Fields / Inputs
+   ==================================================================== */
+
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.field label {
+    font-size: 11.5px;
+    font-weight: 600;
+    color: var(--text-lo);
+    letter-spacing: 0.02em;
+}
+
+input,
+select {
+    height: 38px;
+    border: 1px solid var(--hairline);
+    border-radius: 7px;
+    background: var(--ink-850);
+    padding: 0 12px;
+    font-size: 13px;
+    font-family: "JetBrains Mono", monospace;
+    color: var(--text-hi);
+    outline: none;
+    width: 100%;
+}
+
+select {
+    font-family: "Inter", sans-serif;
+}
+
+input::placeholder {
+    color: var(--text-faint);
+    font-family: "Inter", sans-serif;
+}
+
+input:focus,
+select:focus {
+    border-color: var(--gold-soft);
+    box-shadow: 0 0 0 3px var(--gold-wash);
+}
+
+input[type="date"] {
+    color-scheme: dark;
+}
+
+.input-money {
+    display: flex;
+    align-items: center;
+    height: 38px;
+    border: 1px solid var(--hairline);
+    border-radius: 7px;
+    background: var(--ink-850);
+    overflow: hidden;
+}
+
+.input-money:focus-within {
+    border-color: var(--gold-soft);
+    box-shadow: 0 0 0 3px var(--gold-wash);
+}
+
+.input-money span {
+    padding-left: 12px;
+    font-size: 12.5px;
+    font-family: "JetBrains Mono", monospace;
+    color: var(--text-lo);
+    font-weight: 600;
+}
+
+.input-money input {
+    border: none;
+    background: transparent;
+    box-shadow: none;
+}
+
+.input-money input:focus {
+    box-shadow: none;
+}
+
+
+/* ====================================================================
+   Buttons
+   ==================================================================== */
+
+.btn {
+    height: 38px;
+    padding: 0 18px;
+    border-radius: 7px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    border: 1px solid transparent;
+    font-family: "Inter", sans-serif;
+    transition: opacity 0.15s ease, border-color 0.15s ease;
+}
+
+.btn-primary {
+    background: var(--gold);
+    color: #14171F;
+    border-color: var(--gold);
+}
+
+.btn-primary:hover {
+    opacity: 0.88;
+}
+
+.btn-ghost {
+    background: transparent;
+    color: var(--text-lo);
+    border-color: var(--hairline);
+}
+
+.btn-ghost:hover {
+    color: var(--text-hi);
+    border-color: var(--text-lo);
+}
+
+
+/* ====================================================================
+   Stat / delta colors (signature ▲▼ indicator)
+   ==================================================================== */
+
+.profit { color: var(--profit) !important; }
+.loss { color: var(--loss) !important; }
+
+.profit::before,
+td.profit.delta::before,
+strong.profit::before {
+    content: "▲ ";
+    font-size: 0.75em;
+}
+
+.loss::before,
+td.loss.delta::before,
+strong.loss::before {
+    content: "▼ ";
+    font-size: 0.75em;
+}
+
+
+/* ====================================================================
+   Chart
+   ==================================================================== */
+
+.chart-frame {
+    background: var(--ink-850);
+    border: 1px solid var(--hairline-soft);
+    border-radius: var(--radius);
+    padding: 18px;
+}
+
+
+/* ====================================================================
+   Tables
+   ==================================================================== */
+
+.table-frame {
+    border: 1px solid var(--hairline-soft);
+    border-radius: var(--radius);
+    overflow: hidden;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.simulation-table-wrapper {
+    max-height: 420px;
+    overflow-y: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+thead {
+    background: var(--ink-800);
+    position: sticky;
+    top: 0;
+}
+
+th {
+    padding: 12px 20px;
+    text-align: left;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-lo);
+    font-weight: 600;
+    border-bottom: 1px solid var(--hairline);
+    white-space: nowrap;
+}
+
+td {
+    padding: 13px 20px;
+    border-bottom: 1px solid var(--hairline-soft);
+    font-size: 13px;
+    font-family: "JetBrains Mono", monospace;
+    color: var(--text-hi);
+}
+
+td:first-child {
+    font-family: "Inter", sans-serif;
+    font-weight: 600;
+}
+
+tbody tr:hover {
+    background: var(--ink-800);
+}
+
+tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.side-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 5px;
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    font-family: "JetBrains Mono", monospace;
+}
+
+.side-badge.buy {
+    color: var(--buy);
+    background: rgba(108, 147, 224, 0.12);
+}
+
+.side-badge.sell {
+    color: var(--sell);
+    background: var(--loss-wash);
+}
+
+
+/* ====================================================================
+   Placeholder note
+   ==================================================================== */
+
+.placeholder-note {
+    color: var(--text-lo);
+    font-size: 12.5px;
+    line-height: 1.6;
+    background: var(--ink-850);
+    border: 1px dashed var(--hairline);
+    border-radius: var(--radius);
+    padding: 16px 18px;
+    margin: 0;
+}
+
+
+/* ====================================================================
+   Footer
+   ==================================================================== */
+
+footer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 28px;
+    color: var(--text-faint);
+    font-size: 11px;
+    letter-spacing: 0.03em;
+}
+
+
+/* ====================================================================
+   Scenario builder
+   ==================================================================== */
+
+.scenario-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-bottom: 20px;
+}
+
+.scenario-card {
+    background: var(--ink-850);
+    border: 1px solid var(--hairline-soft);
+    border-radius: var(--radius);
+    padding: 18px 20px;
+}
+
+.scenario-card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.scenario-name {
+    flex: 1;
+    max-width: 280px;
+    font-family: "Sora", sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    background: transparent;
+    border: 1px solid transparent;
+    padding: 6px 10px;
+    border-radius: 6px;
+}
+
+.scenario-name:hover,
+.scenario-name:focus {
+    border-color: var(--hairline);
+    background: var(--ink-900);
+}
+
+.scenario-swatch {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.btn-remove-scenario {
+    margin-left: auto;
+    width: 30px;
+    height: 30px;
+    border-radius: 6px;
+    border: 1px solid var(--hairline);
+    background: transparent;
+    color: var(--text-lo);
+    cursor: pointer;
+    font-size: 14px;
+    line-height: 1;
+}
+
+.btn-remove-scenario:hover {
+    color: var(--loss);
+    border-color: var(--loss);
+}
+
+.scenario-fields {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+}
+
+.btn-run {
+    width: 100%;
+}
+
+.run-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 16px;
+}
+
+.run-controls-field {
+    width: 220px;
+}
+
+.run-controls-hint {
+    margin: 0;
+    font-size: 11.5px;
+    line-height: 1.5;
+    color: var(--text-faint);
+}
+
+.range-sub {
+    display: block;
+    margin-top: 2px;
+    font-size: 10.5px;
+    color: var(--text-lo);
+    font-weight: 400;
+}
+
+.detail-select {
+    min-width: 220px;
+}
+
+.detail-select label {
+    text-align: right;
+}
+
+
+/* ====================================================================
+   Responsive
+   ==================================================================== */
+
+@media (max-width: 1100px) {
+    .scenario-fields {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 800px) {
+    .terminal {
+        padding: 22px 18px 40px;
+    }
+
+    .term-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .panel-header--split {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+@media (max-width: 520px) {
+    .scenario-fields {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .brand-dot {
+        animation: none;
+    }
+}

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>GOLDLOG — Capital Simulation Studio</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <div class="terminal">
+
+        <!-- ================= HEADER ================= -->
+        <header class="term-header">
+
+            <div class="brand">
+                <span class="brand-dot" aria-hidden="true"></span>
+                <div>
+                    <h1>GOLDLOG</h1>
+                    <p>Capital Simulation Studio</p>
+                </div>
+            </div>
+
+            <div class="header-right">
+                <div class="header-chip header-chip--accent">
+                    <span>Scenarios</span>
+                    <strong id="scenarioCountLabel">0</strong>
+                </div>
+            </div>
+
+        </header>
+
+        <main>
+
+            <!-- ================= SCENARIO BUILDER ================= -->
+            <section class="panel">
+
+                <div class="panel-header panel-header--split">
+
+                    <div>
+                        <div class="panel-eyebrow">Setup</div>
+                        <h2>Scenario Builder</h2>
+                        <p>Define one or more what-if scenarios, then run and compare them side by side</p>
+                    </div>
+
+                    <button id="addScenario" class="btn btn-ghost">+ Add Scenario</button>
+
+                </div>
+
+                <div class="panel-body">
+
+                    <div id="scenarioList" class="scenario-list"></div>
+
+                    <div class="run-controls">
+
+                        <div class="field run-controls-field">
+                            <label for="globalNumSimulations">Simulations per Scenario</label>
+                            <input type="number" id="globalNumSimulations" value="1" min="1" max="5000" step="1">
+                        </div>
+
+                        <p class="run-controls-hint">
+                            1 = a single random day-by-day path. More runs (e.g. 1000) shows the
+                            realistic range of outcomes (P5–P95) instead of just one possibility.
+                        </p>
+
+                        <button id="runAllSimulations" class="btn btn-primary btn-run">Run All Simulations</button>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- ================= COMPARISON ================= -->
+            <section class="panel" id="comparisonPanel" hidden>
+
+                <div class="panel-header">
+                    <div class="panel-eyebrow">Results</div>
+                    <h2>Comparison</h2>
+                    <p>Final projected outcome for each scenario after its simulated period</p>
+                </div>
+
+                <div class="panel-body">
+
+                    <div class="table-frame">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Scenario</th>
+                                    <th>Win Rate</th>
+                                    <th>Final Balance</th>
+                                    <th>Net Change</th>
+                                    <th>Growth</th>
+                                    <th>Risk of Ruin</th>
+                                </tr>
+                            </thead>
+                            <tbody id="comparisonTableBody"></tbody>
+                        </table>
+                    </div>
+
+                    <div class="chart-frame">
+                        <canvas id="comparisonChart" height="90"></canvas>
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- ================= DETAIL ================= -->
+            <section class="panel" id="detailPanel" hidden>
+
+                <div class="panel-header panel-header--split">
+
+                    <div>
+                        <div class="panel-eyebrow">Results</div>
+                        <h2>Day-by-Day Detail</h2>
+                        <p>Full daily breakdown for a single scenario</p>
+                    </div>
+
+                    <div class="field detail-select">
+                        <label for="detailScenarioSelect">Scenario</label>
+                        <select id="detailScenarioSelect"></select>
+                    </div>
+
+                </div>
+
+                <div class="panel-body">
+
+                    <div class="table-frame simulation-table-wrapper">
+                        <table>
+                            <thead id="detailTableHead">
+                                <tr>
+                                    <th>Day</th>
+                                    <th>Result</th>
+                                    <th>Change</th>
+                                    <th>Balance</th>
+                                </tr>
+                            </thead>
+                            <tbody id="detailTableBody"></tbody>
+                        </table>
+                    </div>
+
+                </div>
+
+            </section>
+
+            <p class="placeholder-note" id="emptyPlaceholder">
+                Add at least one scenario above, fill in your assumptions, and click
+                "Run All Simulations" to see projected results. This is a what-if tool
+                based on the numbers you provide, not a prediction of actual trading results.
+            </p>
+
+        </main>
+
+        <!-- ================= FOOTER ================= -->
+        <footer>
+            <span>GOLDLOG — Capital Simulation Studio</span>
+            <span>Phase 3</span>
+        </footer>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+    <script src="js/simulation.js"></script>
+    <script src="js/app.js"></script>
+
+</body>
+</html>
